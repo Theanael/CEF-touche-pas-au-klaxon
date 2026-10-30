@@ -1,0 +1,8 @@
+RewriteEngine On
+
+RewriteBase /touche-pas-au-klaxon/
+
+RewriteRule ^ public/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
