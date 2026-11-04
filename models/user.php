@@ -7,6 +7,7 @@ class User{
     protected $lastname = "";
     protected $phone = "";
     protected $email = "";
+    public $admin = false;
     
     public function __construct($db) {
         $this->db=$db;
@@ -33,6 +34,10 @@ class User{
         
     }
 
+    public function isAdmin(){
+        return $this->admin;
+    }
+
     public function findById($id){
         $query = $this->db->prepare(
             'SELECT id, firstname, lastname, phone, email, password
@@ -56,6 +61,7 @@ class User{
             return true;
         }
     }
+
 
     public function authenticate($email, $password){
         $query = $this->db->prepare(
