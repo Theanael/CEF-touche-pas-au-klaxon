@@ -52,20 +52,20 @@ class Agency{
     }
 
    public function create(){
-    $query = $this->db->prepare(
-        'INSERT INTO agency (name) VALUES (:name)'
-    );
+        $query = $this->db->prepare(
+            'INSERT INTO agency (name) VALUES (:name)'
+        );
 
-    $result = $query->execute([
-        'name' => $this->name
-    ]);
+        $result = $query->execute([
+            'name' => $this->name
+        ]);
 
-    if ($result) {
-        $this->id = $this->db->lastInsertId();
+        if ($result) {
+            $this->id = $this->db->lastInsertId();
+        }
+
+        return $result;
     }
-
-    return $result;
-}
 
     public function delete(){
         $query = $this->db->query('DELETE FROM agency WHERE id="'.$this->id.'" ');
