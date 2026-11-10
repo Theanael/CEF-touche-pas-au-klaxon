@@ -91,7 +91,7 @@ class User{
             return false;
         }
 
-        this->hydrate($data);
+        $this->hydrate($data);
 
         return true;
     }
