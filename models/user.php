@@ -13,6 +13,10 @@ class User{
         $this->db=$db;
     }
 
+    public function getId(){
+        return $this->id;
+    }
+
     public function getFullname(){
         return $this->firstname.' '.$this->lastname;
     }
@@ -38,9 +42,23 @@ class User{
         return $this->admin;
     }
 
+    public function getList(){
+        $query = $this->db->query(
+            'SELECT id, firstname, lastname, phone, email,admin
+            FROM user'
+        );
+        $list=[];
+        while($row=$query->fetch(PDO::FETCH_ASSOC)){
+            $user=new User($this->db);
+            $user->hydrate($row);
+            $list[]=$user;
+        }
+        return $list;
+    }
+
     public function findById($id){
         $query = $this->db->prepare(
-            'SELECT id, firstname, lastname, phone, email, password
+            'SELECT id, firstname, lastname, phone, email, password,admin
             FROM user
             WHERE id = :id'
         );
@@ -52,12 +70,7 @@ class User{
         if(!$data){
             return false;
         }else{
-            
-            $this->id = $data['id'];
-            $this->firstname = $data['firstname'];
-            $this->lastname = $data['lastname'];
-            $this->phone = $data['phone'];
-            $this->email = $data['email'];
+            $this->hydrate($data);
             return true;
         }
     }
@@ -78,15 +91,20 @@ class User{
             return false;
         }
 
-        $this->id = $data['id'];
-        $this->firstname = $data['firstname'];
-        $this->lastname = $data['lastname'];
-        $this->phone = $data['phone'];
-        $this->email = $data['email'];
+        this->hydrate($data);
 
         return true;
     }
 
+
+    protected function hydrate($data){
+            $this->id = $data['id'];
+            $this->firstname = $data['firstname'];
+            $this->lastname = $data['lastname'];
+            $this->phone = $data['phone'];
+            $this->email = $data['email'];
+            $this->admin = $data['admin'];
+    }
 
 
 
