@@ -11,10 +11,16 @@
             <a class="btn btn-secondary" href="">Agences</a>
             <a class="btn btn-secondary" href="">Trajets</a>
             <?php }else {?> 
-            <a class="btn btn-dark" href="">Créer un trajet</a>
+            <a class="btn btn-dark" href="<?php echo $_ENV['URL_ROOT']?>/route/create">Créer un trajet</a>
             <?php }?>
             <span>Bonjour <?php echo $currentUser->getFullName(); ?></span>
-        <?php }?>
-        <a class="btn btn-dark" href="">Déconnexion</a>
+        <?php }?> 
+        
+            <a class="btn btn-dark" href="<?php echo $_ENV['URL_ROOT'].'/'.($currentUser?'logout':'login') ?>">
+                <?php echo ($currentUser?'Déconnexion':'Connexion') ?>
+            </a>
+
+        
+        </a>
     </nav>
 </header>
