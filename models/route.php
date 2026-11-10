@@ -1,6 +1,4 @@
 <?php
-require_once 'agency.php';
-require_once 'user.php';
 
 class Route{
     protected PDO $db;
@@ -26,6 +24,10 @@ class Route{
 
     public function __construct(PDO $db) {
         $this->db=$db;
+    }
+
+    public function getId(){
+        return $this->id;
     }
 
     public function getStartAgency(){
@@ -244,7 +246,7 @@ class Route{
     }
 
     public function isEditableBy(User $user){
-        return ($user->isAdmin() || $user->id==$this->organizerId);
+        return ($user->isAdmin() || $user->getId()==$this->organizerId);
     }
 
     protected function hydrate($data) {
