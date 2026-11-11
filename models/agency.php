@@ -9,6 +9,10 @@ class Agency{
         $this->db=$db;
     }
 
+    public function getId(){
+        return $this->id;
+    }
+
     public function setName($name){
         // trim le nom et vérifier qu'il est d'une taille acceptée.
         $this->name = $name;
@@ -69,6 +73,17 @@ class Agency{
 
     public function delete(){
         $query = $this->db->query('DELETE FROM agency WHERE id="'.$this->id.'" ');
+        return $query;    
+    }
+
+    public function update(){
+        $query = $this->db->prepare('UPDATE agency
+        SET name=:name 
+        WHERE id=:id ');
+        $result = $query->execute([
+            'name' => $this->name,
+            'id' => $this->id
+        ]);
         return $query;    
     }
 
