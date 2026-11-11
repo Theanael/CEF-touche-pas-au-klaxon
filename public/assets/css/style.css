@@ -1,0 +1,162 @@
+:root {
+    --bs-light: #f1f8fc;
+    --bs-primary: #0074c7;
+    --bs-secondary: #00497c;
+    --bs-dark: #384050;
+    --bs-danger: #cd2c2e;
+    --bs-success: #82b864;
+
+    --bs-light-rgb: 241, 248, 252;
+    --bs-primary-rgb: 0, 116, 199;
+    --bs-secondary-rgb: 0, 73, 124;
+    --bs-dark-rgb: 56, 64, 80;
+    --bs-danger-rgb: 205, 44, 46;
+    --bs-success-rgb: 130, 184, 100;
+}
+
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #0074c7;
+    --bs-btn-border-color: #0074c7;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #005fa3;
+    --bs-btn-hover-border-color: #005895;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #00497c;
+    --bs-btn-active-border-color: #00497c;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #0074c7;
+    --bs-btn-disabled-border-color: #0074c7;
+}
+
+/* SECONDARY */
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #00497c;
+    --bs-btn-border-color: #00497c;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #00375e;
+    --bs-btn-hover-border-color: #003153;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #002b49;
+    --bs-btn-active-border-color: #002b49;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #00497c;
+    --bs-btn-disabled-border-color: #00497c;
+}
+
+/* SUCCESS */
+.btn-success {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #82b864;
+    --bs-btn-border-color: #82b864;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #6d9e52;
+    --bs-btn-hover-border-color: #628f49;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #628f49;
+    --bs-btn-active-border-color: #628f49;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #82b864;
+    --bs-btn-disabled-border-color: #82b864;
+}
+
+/* DANGER */
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #cd2c2e;
+    --bs-btn-border-color: #cd2c2e;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #ad2426;
+    --bs-btn-hover-border-color: #a02022;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #922022;
+    --bs-btn-active-border-color: #922022;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #cd2c2e;
+    --bs-btn-disabled-border-color: #cd2c2e;
+}
+
+/* DARK */
+.btn-dark {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #384050;
+    --bs-btn-border-color: #384050;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #292f3b;
+    --bs-btn-hover-border-color: #252b36;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #222833;
+    --bs-btn-active-border-color: #222833;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #384050;
+    --bs-btn-disabled-border-color: #384050;
+}
+
+/* LIGHT */
+.btn-light {
+    --bs-btn-color: #384050;
+    --bs-btn-bg: #f1f8fc;
+    --bs-btn-border-color: #dce7ee;
+    --bs-btn-hover-color: #384050;
+    --bs-btn-hover-bg: #dceaf2;
+    --bs-btn-hover-border-color: #cbdce7;
+    --bs-btn-active-color: #384050;
+    --bs-btn-active-bg: #cbdce7;
+    --bs-btn-active-border-color: #bdcfdb;
+    --bs-btn-disabled-color: #384050;
+    --bs-btn-disabled-bg: #f1f8fc;
+    --bs-btn-disabled-border-color: #dce7ee;
+}
+
+a {
+    color: var(--bs-primary);
+}
+
+.table {
+    --bs-table-color: var(--bs-dark);
+    --bs-table-bg: transparent;
+
+    --bs-table-striped-color: var(--bs-dark);
+    --bs-table-striped-bg: rgba(0, 116, 199, 0.06);
+
+    --bs-table-hover-color: var(--bs-dark);
+    --bs-table-hover-bg: rgba(0, 116, 199, 0.12);
+
+    --bs-table-border-color: rgba(56, 64, 80, 0.2);
+}
+
+.table thead th {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+    border-color: var(--bs-dark);
+}
+
+.table tbody td {
+    color: var(--bs-dark);
+}
+
+.table-primary {
+    --bs-table-color: #fff;
+    --bs-table-bg: #0074c7;
+    --bs-table-border-color: #005fa3;
+}
+
+.table-secondary {
+    --bs-table-color: #fff;
+    --bs-table-bg: #00497c;
+    --bs-table-border-color: #00375e;
+}
+
+.table-success {
+    --bs-table-color: #26351f;
+    --bs-table-bg: #82b864;
+    --bs-table-border-color: #6d9e52;
+}
+
+.table-danger {
+    --bs-table-color: #fff;
+    --bs-table-bg: #cd2c2e;
+    --bs-table-border-color: #ad2426;
+}
