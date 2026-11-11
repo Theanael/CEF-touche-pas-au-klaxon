@@ -1,7 +1,8 @@
 <?php
 
 class RouteController extends BaseController
-{    
+{
+
     protected $default_columns = [
         ["label"=>"Départ","name"=>"start_at"],
         ["label"=>"Date","name"=>"start_date"],
@@ -52,6 +53,7 @@ class RouteController extends BaseController
             'currentUser'=>$this->currentUser??null,
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
+            "object"=>"routes",
             'table_columns'=>$table_columns,
             'table_data'=>$table_data
         ]);

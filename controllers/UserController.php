@@ -32,6 +32,7 @@ class UserController extends BaseController
             'currentUser'=>$this->currentUser??null,
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
+            "object"=>"users",
             'table_columns'=>$table_columns,
             'table_data'=>$table_data,
         ]);
