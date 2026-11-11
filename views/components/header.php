@@ -7,9 +7,19 @@
         if($currentUser){
             if ($currentUser->isAdmin()){
         ?> 
-            <a class="btn btn-secondary" href="">Utilisateurs</a>
-            <a class="btn btn-secondary" href="">Agences</a>
-            <a class="btn btn-secondary" href="">Trajets</a>
+            <a class="btn btn-secondary" href="<?php echo $_ENV['URL_ROOT'].'/users'?>">Utilisateurs</a>
+            <?php if ($object=="agencies"){?>
+                <a class="btn btn-primary" href="<?php echo $_ENV['URL_ROOT'].'/agencies/create'?>">Créer une agence</a>
+            <?php }else{?>
+                <a class="btn btn-secondary" href="<?php echo $_ENV['URL_ROOT'].'/agencies'?>">Agences</a>
+            <?php } ?>
+
+            <?php if ($object=="routes"){?>
+                <a class="btn btn-primary" href="<?php echo $_ENV['URL_ROOT'].'/routes/create'?>">Créer un trajet</a>
+            <?php }else{?>
+                <a class="btn btn-secondary" href="<?php echo $_ENV['URL_ROOT']?>">Trajets</a>
+            <?php } ?>
+
             <?php }else {?> 
             <a class="btn btn-dark" href="<?php echo $_ENV['URL_ROOT']?>/route/create">Créer un trajet</a>
             <?php }?>

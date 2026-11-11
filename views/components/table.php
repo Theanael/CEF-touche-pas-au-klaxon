@@ -28,10 +28,10 @@
                         </a>
 
                         <?php if ($row['editable']){ // si l'utilisateur a le droit de modifier le trajet on affiche les boutons correspondants?>
-                        <a class="link-dark link-underline-opacity-0"  href="<?php echo $_ENV['URL_ROOT']?>/route/<?php echo $row['id']; ?>/edit">
+                        <a class="link-dark link-underline-opacity-0"  href="<?php echo $_ENV['URL_ROOT'].'/'.$object.'/'. $row['id']; ?>/edit">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a class="link-dark link-underline-opacity-0"  href="<?php echo $_ENV['URL_ROOT']?>/route/<?php echo $row['id']; ?>/delete">
+                        <a class="link-dark link-underline-opacity-0"  href="<?php echo $_ENV['URL_ROOT'].'/'.$object.'/'. $row['id']; ?>/delete">
                             <i class="bi bi-trash3"></i>
                         </a>
                         <?php } ?>
