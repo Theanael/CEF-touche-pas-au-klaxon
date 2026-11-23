@@ -1,9 +1,16 @@
 <?php
 
 use Buki\Router\Http\Middleware;
-
+/**
+ * Middleware utilisé pour verouiller le panel administrateur aux administrateurs.
+ */
 class Admin extends Middleware
 {
+    /**
+     * handle
+     * vérifie si l'utilisateur connecté est un administrateur et affiche une erreur sinon.
+     * @return Bool true si l'utilisateur est administrateur, false sinon.
+     */
     public function handle()
     {
         $user;

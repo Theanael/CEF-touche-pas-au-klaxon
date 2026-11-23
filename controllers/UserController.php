@@ -1,8 +1,11 @@
 <?php 
 class UserController extends BaseController
 {
-
-
+    /**
+     * list
+     * Affiche la liste des utilisateurs.
+     * @return void
+     */
     public function list(){
 
         $this->getUserAndDb();
@@ -13,7 +16,6 @@ class UserController extends BaseController
             ['label'=>'Téléphone', 'name'=>'phone'],
             ['label'=>'E-Mail', 'name'=>'email'],
             ['label'=>'Administrateur', 'name'=>'admin'],
-            
         ];
         $table_data=[];
         $users=new User($this->db)->getList();
@@ -38,6 +40,11 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * loginPage
+     * Affiche la page de connexion.
+     * @return void
+     */
     public function loginPage(){
         View::render('users/login', [
             'currentUser'=>null,
@@ -46,6 +53,11 @@ class UserController extends BaseController
         ]);
     }
 
+    /**
+     * login
+     * Traite une tentative de connexion et redirige vers la page d'accueil en cas de connexion réussie.
+     * @return void
+     */
     public function login()
     {
         $email = $_POST['email'];
@@ -54,22 +66,26 @@ class UserController extends BaseController
         $db = Database::getDb();
         $user = new User($db);
 
-        if ($user->authenticate($email, $password)) {
+        if ($user->authenticate($email, $password)) { // Si la connexion est réussie on enregistre son id dans la session.
 
-            // Régénération de l'identifiant de session
             session_regenerate_id(true);
 
-            // Enregistrement des informations utilisateur
             $_SESSION['user'] = $user->getId();
             
             header('Location: ' . $_ENV['URL_ROOT']);
             exit;
         }
 
-        // Identifiants incorrects
+        // Sinon on redirige vers la page de connexion avec un message d'erreur
         header('Location: ' . $_ENV['URL_ROOT'] . '/login?error=invalid');
         exit;
     }
+
+    /**
+     * logout
+     * déconnecte l'utilisateur s'il est connecté et renvoie vers la page d'accueil
+     * @return void
+     */
 
     public function logout(){
         unset($_SESSION['user']);

@@ -3,6 +3,7 @@
 class RouteController extends BaseController
 {
 
+    // colonnes par défaut pour les trajets.
     protected $default_columns = [
         ["label"=>"Départ","name"=>"start_at"],
         ["label"=>"Date","name"=>"start_date"],
@@ -13,6 +14,11 @@ class RouteController extends BaseController
         ["label"=>"Places","name"=>"seats"],
     ];
 
+    /**
+     * list
+     * Affiche la liste des trajets futurs
+     * @return void
+     */
     public function list(){
         $this->getUserAndDb();
 
@@ -37,7 +43,7 @@ class RouteController extends BaseController
                 'end_time'=>$route->getEndTime(),
                 'seats'=>$seats['total']-$seats['taken'],
             ];
-            if (!empty($this->currentUser)){
+            if (!empty($this->currentUser)){ // si l'utilisateur est connecté on rajoutes des donnés additionnelles pour l'affichage des détails et les droits d'édition
                 
                 $row['details']['author']=$route->getOrganizer()->getFullName();
                 $row['details']['phone']=$route->getOrganizer()->getPhone();
@@ -59,59 +65,12 @@ class RouteController extends BaseController
         ]);
     }
 
-    public function details($id){
-
-        $this->getUserAndDb();
-
-        $selected=new Route($this->db);
-        $selected->findById($id);
-
-        $organizer = $selected->getOrganizer();
-
-        $modal=[
-            ["label"=>"Auteur","value"=> $organizer->getFullName()],
-            ["label"=>"Téléphone","value"=>chunk_split($organizer->getPhone(), 2, " ")],
-            ["label"=>"Email","value"=>$organizer->getMail()],
-            ["label"=>"Nombre total de places","value"=>$selected->getSeats()['total']]
-        ];
-
-
-
-        $table_columns = $this->default_columns;
-        if ($this->currentUser){
-            $table_columns[]=["label"=>"","name"=>"actions"];
-        }
-
-        $routes=new Route($db)->getCurrents();
-        $table_data=[];
-        foreach($routes as $route){
-            $seats=$route->getSeats();
-            $row=[
-                'id'=>$route->getId(),
-                'start_at'=>$route->getStartAgency()->getName(),
-                'start_date'=>$route->getEndDate(),
-                'start_time'=>$route->getEndTime(),
-                'end_at'=>$route->getEndAgency()->getName(),
-                'end_date'=>$route->getEndDate(),
-                'end_time'=>$route->getEndTime(),
-                'seats'=>$seats['total']-$seats['taken'],
-                'editable'=>$route->isEditableBy($currentUser)
-            ];
-            $table_data[]=$row;
-            
-        }
-
-        View::render('routes/details', [
-            'currentUser'=>$this->currentUser,
-            'title' => 'Touche pas au klaxon',
-            'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
-            'table_columns'=>$table_columns,
-            'table_data'=>$table_data,
-            "modal"=>$modal,
-            "open_modal"=>$id
-        ]);
-    }
-
+    /**
+     * delete
+     * Supprime un trajet et redirige vers la liste des trajets.
+     * @param Number $id l'identifiant du trajet à supprimer
+     * @return void
+     */
     public function delete($id){
         $this->getUserAndDb();
 
@@ -126,6 +85,12 @@ class RouteController extends BaseController
             exit;
         }
     }
+
+    /**
+     * creationForm
+     * Affiche le formulaire de création de trajet.
+     * @return void
+     */
 
     public function creationForm(){
 
@@ -147,16 +112,19 @@ class RouteController extends BaseController
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
             'action'=>'create',
+            'object'=>'route',
             'agency_options'=>$options,
             'route'=>null
         ]);
     }
 
+    /**
+     * create
+     * Crée un nouveau trajet selon le contenu du POST puis redirige vers la liste des trajets.
+     * @return void
+     */
     public function create(){
-
-        
         $this->getUserAndDb();
-
 
         $newRoute=new Route($this->db);
         $newRoute->setStartAgency($_POST['start_at']);
@@ -176,6 +144,12 @@ class RouteController extends BaseController
         }
     }
 
+    /**
+     * editionForm
+     * Affiche le formulaire d'édition d'un trajet.
+     * @param Number $id l'identifiant du trajet à modifier.
+     * @return void
+     */
     public function editionForm($id){
         
         $this->getUserAndDb();
@@ -210,11 +184,18 @@ class RouteController extends BaseController
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
             'action'=>'edit',
+            'object'=>'route',
             'agency_options'=>$options,
             'route'=>$edited
         ]);
     }
 
+    /**
+     * edit
+     * Modifie un trajet selon le contenu du POST puis redirige vers la liste des trajets.
+     * @param Number $id l'identifiant du trajet à modifier.
+     * @return void
+     */
     public function edit($id){
 
         echo '<pre>';

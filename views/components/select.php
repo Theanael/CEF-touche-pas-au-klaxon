@@ -7,7 +7,7 @@
         <?php foreach($select['options']as $option){?> 
             <option 
                 value="<?php echo $option['value']?>" 
-                <?php if(!empty($select['selected']) && $option['value']==$select['selected']) echo 'selected="1"' //sert quand on veut conserver la sélection après un traitement (en cas d'erreur par exemple) ?>
+                <?php if(!empty($select['selected']) && $option['value']==$select['selected']) echo 'selected="1"' // pour préselectionner une valeur (mode edition ou affichage après erreur) ?>
             >
                 <?php echo $option['label']?>
             </option>

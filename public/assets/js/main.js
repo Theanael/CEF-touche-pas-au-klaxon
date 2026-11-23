@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // On vérifie que la modale existe sur la page
     if (modal) {
 
+        // Ajoute un Even Listener sur l'ouverture de la modale pour changer les données affichées.
         modal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             
