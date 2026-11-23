@@ -27,8 +27,8 @@ final class AgencyTest extends TestCase{
 
             $result = $query->fetch(PDO::FETCH_ASSOC);
 
-            $this->assertNotFalse($result,'Agency::create');
-            $this->assertSame($name,$result['name'],'Agency::create');
+            $this->assertNotFalse($result,'Agency::create : can\'t find the id in database.');
+            $this->assertSame($name,$result['name'],'Agency::create : the name wasn`t saved properly.');
         } finally {
             $db->rollBack();
         }
@@ -60,8 +60,8 @@ final class AgencyTest extends TestCase{
             $query->execute(['id' => $agency->getId()]);
 
             $result = $query->fetch(PDO::FETCH_ASSOC);
-            $this->assertNotFalse($result,'Agency::update');
-            $this->assertSame($new_name,$result['name'],'Agency::update');
+            $this->assertNotFalse($result,'Agency::update : the Agency can\'t be found');
+            $this->assertSame($new_name,$result['name'],'Agency::update : the name wasn\'t properly updated');
         } finally {
             $db->rollBack();
         }
@@ -78,15 +78,17 @@ final class AgencyTest extends TestCase{
             $agency->setName($name);
             $agency->create();
 
+            $id = $agency->getId();
+
             $agency_to_delete = new Agency($db);
-            $agency_to_delete->findById($agency->getId());
+            $agency_to_delete->findById($id);
 
             $agency_to_delete->delete();
 
             $query = $db->prepare('SELECT * FROM agency WHERE id = :id');
-            $query->execute(['id' => $agency->getId()]);
+            $query->execute(['id' => $id]);
             $result = $query->fetch(PDO::FETCH_ASSOC);
-            $this->assertFalse($result,'Agency::delete');
+            $this->assertFalse($result,'Agency::delete : the agency wasn\'t deleted properly.');
         }finally{
             $db->rollBack();
         }
