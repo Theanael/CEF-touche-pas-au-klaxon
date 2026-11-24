@@ -29,7 +29,7 @@ $router = new Router([
 $router->get('/', 'RouteController@list');
 
 // Affiche la page de création de trajet.
-$router->get('/routes/create','RouteController@creationForm');
+$router->get('/routes/create','RouteController@creationForm',['before'=>'Auth']);
 
 //Traite la création de trajet puis redirige vers l'accueil.
 $router->post('/routes/create','RouteController@create',['before'=>'Auth']);
@@ -56,7 +56,7 @@ $router->get('/users','UserController@list',['before'=>'Admin']);
 $router->get('/login','UserController@loginPage',['before'=>'Guest']);
 
 // Traite les données de connexion puis redirige vers l'accueil.
-$router->post('/login','UserController@login');
+$router->post('/login','UserController@login',['before'=>'Guest']);
 
 //Déconnecte l'utilisateur puis redirige vers l'accueil.
 $router->get('/logout','UserController@logout');
@@ -67,21 +67,21 @@ $router->get('/logout','UserController@logout');
  */
 
 //Affiche la liste des agences.
-$router->get('/agencies','AgencyController@list');
+$router->get('/agencies','AgencyController@list',['before'=>'Admin']);
 
 //Traite la suppression d'une agence
-$router->get('/agencies/:id/delete','AgencyController@delete');
+$router->get('/agencies/:id/delete','AgencyController@delete',['before'=>'Admin']);
 
 //Affiche le formulaire de création d'agence
-$router->get('agencies/create','AgencyController@creationForm');
+$router->get('agencies/create','AgencyController@creationForm',['before'=>'Admin']);
 
 // Traite la création d'une agence
-$router->post('agencies/create','AgencyController@create');
+$router->post('agencies/create','AgencyController@create',['before'=>'Admin']);
 
 //Affiche le formulaire d'édition d'agences
-$router->get('agencies/:id/edit','AgencyController@editionForm');
+$router->get('agencies/:id/edit','AgencyController@editionForm',['before'=>'Admin']);
 
 // Traite la modification d'une agence.
-$router->post('agencies/:id/edit','AgencyController@edit');
+$router->post('agencies/:id/edit','AgencyController@edit',['before'=>'Admin']);
 
 $router->run();
