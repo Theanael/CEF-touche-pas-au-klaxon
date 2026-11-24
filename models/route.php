@@ -108,7 +108,7 @@ public function setStartDatetime($datetime){
         return false;
     }
 
-    if (($this->endDatetime - $timestamp) <= 1800) { // on vérifie que le trajet a une durée minimum (ici arbitrairement définie à 30min mais qui serait à définir avec le client).
+    if (($this->endDatetime - $timestamp) < 1800 && $this->endDatetime!==null) { // on vérifie que le trajet a une durée minimum (ici arbitrairement définie à 30min mais qui serait à définir avec le client).
         return false;
     }
 
@@ -182,7 +182,7 @@ public function setEndDatetime($datetime){
         return false;
     }
 
-    if (($timestamp - $this->startDatetime) <= 1800) { // on vérifie que le trajet a une durée minimum (ici arbitrairement définie à 30min mais qui serait à définir avec le client).
+    if (($timestamp - $this->startDatetime) <= 1800 && $this->startDatetime!==null) { // on vérifie que le trajet a une durée minimum (ici arbitrairement définie à 30min mais qui serait à définir avec le client).
         return false;
     }
 
@@ -207,7 +207,7 @@ public function setEndDatetime($datetime){
      * @return Bool true si la modification a fonctionné, false sinon.
      */
     public function setSeats($seats){
-        if($seats<$takenSeats){
+        if($seats<$this->takenSeats){
             return false;
         }
         $this->seats=$seats;
@@ -221,7 +221,7 @@ public function setEndDatetime($datetime){
      * @return Bool true si la modification a fonctionné, false sinon.
      */
     public function setTakenSeats($seats){
-        if($seats<$takenSeats){
+        if($this->seats<$seats){
             return false;
         }
         $this->takenSeats=$seats;
@@ -340,6 +340,12 @@ public function setEndDatetime($datetime){
      */
 
     public function create(){
+
+        if($this->startAgencyId ===null || $this->startDatetime ===null || $this->endAgencyId ===null || $this->endDatetime ===null ||
+         $this->seats ===null || $this->takenSeats ===null || $this->organizerId ===null){
+            return false;
+         }
+
         $query = $this->db->prepare(
             'INSERT INTO route(start_at,start_time,end_at,end_time,seats,taken_seats,organizer) 
             VALUES (:start_at,:start_time,:end_at,:end_time,:seats,:taken_seats,:organizer)'
@@ -354,7 +360,7 @@ public function setEndDatetime($datetime){
             'taken_seats'=>$this->takenSeats,
             'organizer'=>$this->organizerId
         ]);
-        
+
         if ($result){
             $this->id = $this->db->lastInsertId();
             return true;
@@ -370,6 +376,12 @@ public function setEndDatetime($datetime){
      */
 
     public function update(){
+        
+        if($this->id ===null || $this->startAgencyId ===null || $this->startDatetime ===null || $this->endAgencyId ===null || $this->endDatetime ===null ||
+         $this->seats ===null || $this->takenSeats ===null || $this->organizerId ===null){
+            return false;
+         }
+
         $query = $this->db->prepare(
             'UPDATE route
             SET start_at = :start_at, start_time = :start_time, end_at = :end_at, end_time = :end_time, seats = :seats, taken_seats = :taken_seats, organizer = :organizer

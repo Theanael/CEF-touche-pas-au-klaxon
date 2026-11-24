@@ -1,6 +1,8 @@
 <header class="d-flex justify-content-between border align-items-center p-3">
     <h1 class="h5">
-        <?php echo $title ?>
+        <a class="navbar-brand" href="<?php echo $_ENV['URL_ROOT'] ?>">
+            <?php echo $title ?>
+        </a>
     </h1>
     <nav class="d-flex gap-3 align-items-center">
         <?php 

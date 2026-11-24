@@ -78,10 +78,10 @@ class RouteController extends BaseController
         $route->findById($id);
 
         if ($route->delete()){
-            header('Location: ' . $_ENV['URL_ROOT']);
+            header('Location: ' . $_ENV['URL_ROOT']."?success=Le trajet a été supprimé avec succès.");
             exit;
         }else{
-            header('Location: ' . $_ENV['URL_ROOT'].'?error=error');
+            header('Location: ' . $_ENV['URL_ROOT'].'?error=Le trajet n\'a pas pu être supprimé');
             exit;
         }
     }
@@ -96,6 +96,15 @@ class RouteController extends BaseController
 
         $this->getUserAndDb();
 
+        
+        $route=[
+            'start_at'=>$_GET['start_at']??"",
+            'start_time'=>$_GET['start_time']??"",
+            'end_at'=>$_GET['end_at']??"",
+            'end_time'=>$_GET['end_time']??"",
+            'seats_taken'=>$_GET['seats_taken']??"",
+            'seats_total'=>$_GET['seats_total']??""
+            ];
 
         $agencies=new Agency($this->db)->getList();
         $options=[];
@@ -112,9 +121,9 @@ class RouteController extends BaseController
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
             'action'=>'create',
-            'object'=>'route',
+            'object'=>'routes',
             'agency_options'=>$options,
-            'route'=>null
+            'route'=>$route
         ]);
     }
 
@@ -134,12 +143,14 @@ class RouteController extends BaseController
         $newRoute->setSeats($_POST['seats_total']);
         $newRoute->setTakenSeats($_POST['seats_taken']);
         $newRoute->setOrganizer($this->currentUser->getId());
-
+        
         if($newRoute->create()){
-            header('Location: ' . $_ENV['URL_ROOT']);
+            header('Location: ' . $_ENV['URL_ROOT']."?success=Le trajet a été créé avec succès.");
             exit;
         }else{
-            header('Location: ' . $_ENV['URL_ROOT'].'/route/create');
+            $get='start_at='.$_POST['start_at'].'&start_time='.$_POST['start_time'].'&end_at='.$_POST['end_at'].'&end_time='.$_POST['end_time'];
+            $get.='&seats_total='.$_POST['seats_total'].'&seats_taken='.$_POST['seats_taken']."&error=La création du trajet a échoué.";
+            header('Location: ' . $_ENV['URL_ROOT'].'/routes/create?'.$get);
             exit;
         }
     }
@@ -184,7 +195,7 @@ class RouteController extends BaseController
             'title' => 'Touche pas au klaxon',
             'footer'=>['date'=>2026,'company'=>'CENEF','site'=>'MVC PHP'],
             'action'=>'edit',
-            'object'=>'route',
+            'object'=>'routes',
             'agency_options'=>$options,
             'route'=>$edited
         ]);
@@ -214,9 +225,11 @@ class RouteController extends BaseController
         $route->setTakenSeats($_POST['seats_taken']);
 
         if($route->update()){
-            header('Location: ' . $_ENV['URL_ROOT']);
+            header('Location: ' . $_ENV['URL_ROOT']."?success=Le trajet a été modifié avec succès.");
             exit;
         }else{
+            $get='start_at='.$_POST['start_at'].'&start_time='.$_POST['start_time'].'&end_at='.$_POST['end_at'].'&end_time='.$_POST['end_time'];
+            $get.='&seats_total='.$_POST['seats_total'].'&seats_taken='.$_POST['seats_taken']."&error=La modification du trajet a échoué.";
             header('Location: ' . $_ENV['URL_ROOT'].'/route/'.$route->getId().'/create');
             exit;
         }
