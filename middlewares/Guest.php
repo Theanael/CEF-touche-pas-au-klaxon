@@ -7,7 +7,11 @@ use Buki\Router\Http\Middleware;
 class Guest extends Middleware
 {
     public function handle()
-    {
+    {    /**
+     * handle
+     * vérifie si l'utilisateur n'est pas connecté et affiche une erreur sinon.
+     * @return Bool true si l'utilisateur n'est pas connecté, false sinon.
+     */
         if (!empty($_SESSION['user'])) {
             $db = Database::getDb();
             $user = new User($db);

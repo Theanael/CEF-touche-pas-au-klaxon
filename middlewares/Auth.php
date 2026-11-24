@@ -2,8 +2,15 @@
 
 use Buki\Router\Http\Middleware;
 
+/**
+ * Middleware utilisé pour empêcher un utilisateur déconnecté d'accéder à certaines pages.
+ */
 class Auth extends Middleware
-{
+{    /**
+     * handle
+     * vérifie si l'utilisateur est connecté et affiche une erreur sinon.
+     * @return Bool true si l'utilisateur est connecté, false sinon.
+     */
     public function handle()
     {
         if (isset($_SESSION['user'])) {

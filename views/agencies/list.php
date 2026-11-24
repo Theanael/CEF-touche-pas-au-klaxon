@@ -1,5 +1,4 @@
-<h2>Liste des agences </h2>
+<h2>Agences </h2>
 
-<?php 
-require_once __DIR__ .'/../components/table.php'; 
+<?php require_once __DIR__ .'/../components/table.php' ?>
 

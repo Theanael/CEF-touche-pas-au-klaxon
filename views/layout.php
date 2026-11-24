@@ -24,6 +24,7 @@
     <body class="d-flex flex-column py-3 px-5 min-vh-100">
         <?php require_once 'components/header.php'?>
         <main class="flex-grow-1 py-3">
+            <?php require_once 'components/messages.php'?>
             <?= $content ?>
 
         </main>

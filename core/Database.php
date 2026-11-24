@@ -1,6 +1,11 @@
 <?php
 class Database{
-
+    
+    /**
+     * getDb
+     * Retourne la connexion à la base de donnée
+     * @return PDO la connexion à la base de donnée
+     */
 
     public static function getDb(){
 

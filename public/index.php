@@ -29,20 +29,20 @@ $router = new Router([
 $router->get('/', 'RouteController@list');
 
 // Affiche la page de création de trajet.
-$router->get('/route/create','RouteController@creationForm');
+$router->get('/routes/create','RouteController@creationForm');
 
 //Traite la création de trajet puis redirige vers l'accueil.
-$router->post('/route/create','RouteController@create');
+$router->post('/routes/create','RouteController@create',['before'=>'Auth']);
 
 //Traite la supression de trajet puis redirige vers l'accueil.
-$router->get('/route/:id/delete','RouteController@delete');
+$router->get('/routes/:id/delete','RouteController@delete',['before'=>'Auth']);
 
 
 //Traite la modification de trajet puis redirige vers l'accueil.
-$router->get('/route/:id/edit','RouteController@editionForm');
+$router->get('/routes/:id/edit','RouteController@editionForm',['before'=>'Auth']);
 
 //Traite la modification de trajet puis redirige vers l'accueil.
-$router->post('/route/:id/edit','RouteController@edit');
+$router->post('/routes/:id/edit','RouteController@edit',['before'=>'Auth']);
 
 
 /**
