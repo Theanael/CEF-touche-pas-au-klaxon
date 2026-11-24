@@ -23,7 +23,7 @@
             <?php } ?>
 
             <?php }else {?> 
-            <a class="btn btn-dark" href="<?php echo $_ENV['URL_ROOT']?>/route/create">Créer un trajet</a>
+            <a class="btn btn-dark" href="<?php echo $_ENV['URL_ROOT']?>/routes/create">Créer un trajet</a>
             <?php }?>
             <span>Bonjour <?php echo $currentUser->getFullName(); ?></span>
         <?php }?> 
